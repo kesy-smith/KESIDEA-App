@@ -1,0 +1,39 @@
+{
+  "entities": {
+    "users": {
+      "title": "User",
+      "description": "User profile and quiz progress.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Firebase Auth UID" },
+        "displayName": { "type": "string", "description": "User's display name" },
+        "email": { "type": "string", "description": "User's email" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Account creation date" }
+      },
+      "required": ["uid", "email"]
+    },
+    "scores": {
+      "title": "Quiz Score",
+      "description": "A record of a user's quiz attempt.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "UID of the user" },
+        "theme": { "type": "string", "enum": ["HTML", "CSS", "JavaScript", "Python", "Java", "MySQL"], "description": "Quiz category" },
+        "score": { "type": "number", "description": "Number of correct answers" },
+        "total": { "type": "number", "description": "Total number of questions" },
+        "timestamp": { "type": "string", "format": "date-time", "description": "When the quiz was completed" }
+      },
+      "required": ["userId", "theme", "score", "total", "timestamp"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "users",
+      "description": "User profile documents."
+    },
+    "/scores/{scoreId}": {
+      "schema": "scores",
+      "description": "Individual quiz attempt records."
+    }
+  }
+}
